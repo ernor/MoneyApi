@@ -1,6 +1,5 @@
 package br.com.api.resource;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.api.event.RecursoCriadoEvent;
 import br.com.api.model.Pessoa;
@@ -31,12 +29,12 @@ public class PessoaResource {
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
-
 	
 	@GetMapping
 	public ResponseEntity<?> listar() {
 		List<Pessoa> pessoas = pessoaRepository.findAll();
 		return !pessoas.isEmpty() ? ResponseEntity.ok(pessoas) : ResponseEntity.noContent().build();
+		
 	}
 	
 	@PostMapping
