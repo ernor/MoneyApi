@@ -53,7 +53,8 @@ public class CategoriaResource {
 	
 	@GetMapping("/{codigo}")
 	public  ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
-		Categoria categoria = categoriaRepository.findById(codigo).get();
+			
+		Categoria categoria = categoriaRepository.findById(codigo).orElseThrow(() -> new IllegalArgumentException("Not found"));
 		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
 	}
 	
