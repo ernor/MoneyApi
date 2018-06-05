@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.api.event.RecursoCriadoEvent;
 import br.com.api.model.Pessoa;
 import br.com.api.repository.PessoaRepository;
+import br.com.api.service.PessoaService;
 
 
 @RestController
@@ -34,6 +34,9 @@ public class PessoaResource {
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@Autowired
+	private PessoaService pessoaService;
 	
 	@GetMapping
 	public ResponseEntity<?> listar() {
@@ -70,9 +73,7 @@ public class PessoaResource {
 	
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa){
-		Pessoa pessoaSalva = pessoaRepository.findById(codigo).get();
-		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
-		pessoaRepository.save(pessoaSalva);
+		Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);	
 		return ResponseEntity.ok(pessoaSalva);
 	}
 
