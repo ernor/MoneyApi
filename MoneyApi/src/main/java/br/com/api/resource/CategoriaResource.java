@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.event.RecursoCriadoEvent;
 import br.com.api.model.Categoria;
 import br.com.api.repository.CategoriaRepository;
+import br.com.api.repository.filter.CategoriaFilter;
 
 @RestController
 @RequestMapping("/categorias")
@@ -31,10 +31,17 @@ public class CategoriaResource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	/*
 	@GetMapping
 	public ResponseEntity<?> listar() {	
 		List<Categoria> categorias = categoriaRepository.findAll();
 		return !categorias.isEmpty() ? ResponseEntity.ok(categorias) : ResponseEntity.noContent().build();
+	}
+	*/
+	
+	@GetMapping
+	public List<Categoria> listar(CategoriaFilter categoriaFilter) {
+		return categoriaRepository.filtrar(categoriaFilter);
 	}
 	
 	@GetMapping("/outros")

@@ -6,12 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,6 +24,7 @@ import br.com.api.event.RecursoCriadoEvent;
 import br.com.api.exceptionhandler.MoneyApiExceptionHandler.Erro;
 import br.com.api.model.Lancamento;
 import br.com.api.repository.LancamentoRepository;
+import br.com.api.repository.filter.LancamentoFilter;
 import br.com.api.service.LancamentoService;
 import br.com.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -45,11 +44,17 @@ public class LancamentoResource {
 	@Autowired
 	private MessageSource messageSource;
 	
-	
+	/*
 	@GetMapping		
 	public ResponseEntity<?> listar() {
 		List<Lancamento> lancamentos = lancamentoRepository.findAll();
 		return !lancamentos.isEmpty() ? ResponseEntity.ok(lancamentos) : ResponseEntity.noContent().build();
+	}
+	*/
+	
+	@GetMapping
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter) {
+		return lancamentoRepository.filtrar(lancamentoFilter);
 	}
 	
 	@GetMapping("/{codigo}")
