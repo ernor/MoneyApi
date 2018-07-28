@@ -61,7 +61,7 @@ public class CategoriaResource {
 	public  ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {		
 		Categoria categoria = null;
 		try {
-			categoria = categoriaRepository.findById(codigo).get();
+			categoria = categoriaRepository.findOne(codigo);
 		} catch(Exception e) {
 		}
 		

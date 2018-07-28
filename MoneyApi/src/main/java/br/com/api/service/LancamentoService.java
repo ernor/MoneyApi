@@ -25,7 +25,7 @@ public class LancamentoService {
 		Pessoa pessoa = null;
 				
 		try{
-			pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();
+			pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
 		
 		} catch(Exception e) {
 			if(pessoa == null || pessoa.isInativo()) {

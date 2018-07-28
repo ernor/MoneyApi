@@ -58,7 +58,7 @@ public class PessoaResource {
 		
 		Pessoa pessoa = null;
 		try {
-			pessoa = pessoaRepository.findById(codigo).get();
+			pessoa = pessoaRepository.findOne(codigo);
 		} catch(Exception e) {
 		}
 		return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
@@ -67,7 +67,7 @@ public class PessoaResource {
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		pessoaRepository.deleteById(codigo);		
+		pessoaRepository.delete(codigo);		
 
 	}
 	

@@ -29,7 +29,7 @@ public class PessoaService {
 	public Pessoa buscarPessoaPeloCodigo(Long codigo) {
 		Pessoa pessoaSalva = null;
 		try {
-			pessoaSalva = pessoaRepository.findById(codigo).get();
+			pessoaSalva = pessoaRepository.findOne(codigo);
 		}catch(Exception e) {
 		}
 		
